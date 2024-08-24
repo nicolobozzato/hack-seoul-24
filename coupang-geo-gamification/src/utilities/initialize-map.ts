@@ -16,7 +16,6 @@ export function initializeMap(svgRef: React.RefObject<SVGSVGElement>) {
     .geoMercator()
     .scale(100000)
     .center([126.97111031571787, 37.59114726984669]);
-  debugger;
   const geoPathGenerator = d3.geoPath().projection(projection);
 
   svg

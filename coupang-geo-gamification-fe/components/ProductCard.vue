@@ -4,7 +4,7 @@
       class="flex flex-row py-2 justify-start items-center"
       :style="{ scale: index > 0 ? 0.5 : 0.7 }"
     >
-      <img src="@/assets/coffe-image.jpg" alt="Coffee Image" class="h-[30vh]" />
+      <img :src="`/assets/coffee-${index + 1}.jpg`" />
       <div class="flex flex-col">
         <h1 class="text-2xl text-black">{{ product.name }}</h1>
         <h2>{{ product.description }}</h2>

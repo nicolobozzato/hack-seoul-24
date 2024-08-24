@@ -14,18 +14,16 @@ const dongList = ref<{
 
 const mapStore = useMapStore();
 
-function handleClick(event: any) {}
-
-function handleMouseOver(event: any) {}
-
-function handleMouseOut(event: any) {
+function handleClick(event: any) {
   const path = d3.select(event.target);
-  const classDeselected = path.attr("class");
-  d3.selectAll(`.${classDeselected}`).attr(
-    "fill",
-    dongList.value[classDeselected.replace("product-", "")],
-  );
+  mapStore.showShortageSelected(path.attr("id").replace("dong-", ""));
 }
+
+function handleMouseOver(event: any) {
+  const path = d3.select(event.target);
+}
+
+function handleMouseOut(event: any) {}
 
 function paintMap() {
   loadingStatus.value = 0;
@@ -58,14 +56,14 @@ function paintMap() {
 watch(
   () => mapStore.inventoryProductSelected,
   (newValue) => {
+    d3.selectAll("path").attr("fill", "blue");
     if (!newValue) {
-      d3.selectAll("path").attr("fill", "blue");
       return;
     }
     newValue.shortageSituations.forEach(
       (shortageSituation: InventoryShortageSituation) => {
         colorDongById(
-          shortageSituation.dongCode,
+          shortageSituation.dong.dongcode,
           shortageSituation.shortageCount,
           newValue.product.id,
         );

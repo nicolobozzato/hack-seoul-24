@@ -4,14 +4,19 @@ import { ref, onMounted } from "vue";
 import { initializeMap } from "~/utilities/initialize-map";
 import { generateFakeData } from "~/utilities/generate-fake-data";
 import { ElProgress } from "element-plus";
+import type { ProductGeoLocation } from "~/models/product-geo-location";
 const svgRef = ref<SVGSVGElement | null>(null);
 const loading = ref<boolean>(false);
 const loadingStatus = ref<number>(0);
-const dongList = ref<{
+const dongDictionary = ref<{
   [key: string]: string;
 }>({});
 
 const mapStore = useMapStore();
+
+const props = defineProps<{
+  dongList: ProductGeoLocation[];
+}>();
 
 function handleClick(event: any) {
   const classSelected = handleMouseOver(event);
@@ -29,7 +34,7 @@ function handleMouseOut(event: any) {
   const classDeselected = path.attr("class");
   d3.selectAll(`.${classDeselected}`).attr(
     "fill",
-    dongList.value[classDeselected.replace("product-", "")],
+    dongDictionary.value[classDeselected.replace("product-", "")],
   );
 }
 
@@ -51,9 +56,8 @@ function paintMap() {
   loadingStatus.value = 60;
   svg.call(zoom as any);
 
-  const list = generateFakeData();
-  const progression = (95 - loadingStatus.value) / list.length;
-  list.forEach((dong) => {
+  const progression = (95 - loadingStatus.value) / props.dongList.length;
+  props.dongList.forEach((dong) => {
     loadingStatus.value = loadingStatus.value + progression;
     const randomNumber = Math.floor(Math.random() * 3);
     colorDongById(
@@ -72,7 +76,7 @@ function paintMap() {
 }
 
 const colorDongById = (id: string, color: string, productId: string) => {
-  dongList.value[productId] = color;
+  dongDictionary.value[productId] = color;
   d3.selectAll(`#dong-${id}`)
     .attr("fill", color)
     .attr("class", "product-" + productId.toString());

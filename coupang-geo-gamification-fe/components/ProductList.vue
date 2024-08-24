@@ -10,17 +10,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
 import ProductCard from "@/components/ProductCard.vue";
 import type { Product } from "@/models/product";
-import { generateFakeData } from "@/utilities/generate-fake-data";
 
-const products = ref<Product[]>([]);
-
-onMounted(() => {
-  const dongData = generateFakeData();
-  products.value = dongData[0].mostPopularProducts;
-});
+const props = defineProps<{
+  products: Product[];
+}>();
 </script>
 
 <style scoped></style>

@@ -1,6 +1,6 @@
 import seoulJson from "../assets/maps/seoul-dong.json";
 import productsJson from "../assets/data/products.json";
-import { ProductGeoLocation } from "@/models/product-geo-location";
+import type { ProductGeoLocation } from "@/models/product-geo-location";
 import { colorsList } from "@/utilities/productColors";
 
 export function generateFakeData() {

@@ -8,6 +8,7 @@
     >
       Look on the map
     </NuxtLink>
+
     <img src="../assets/coffee-product-screenshot.png" />
   </section>
 </template>

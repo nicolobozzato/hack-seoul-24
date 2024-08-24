@@ -1,4 +1,6 @@
+import type { Dong } from "~/models/dong";
+
 export interface InventoryShortageSituation {
-  dongCode: string;
+  dong: Dong;
   shortageCount: number;
 }
