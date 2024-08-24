@@ -1,7 +1,7 @@
-import {Product} from "@/models/product";
+import { Product } from "@/models/product";
 
 export interface ProductGeoLocation {
-    dongId: string;
-    mostPopularProductId: Product;
-    trendingProductId: Product;
+  dongCode: string;
+  mostPopularProducts: Product[3];
+  trendingProducts: Product[3];
 }

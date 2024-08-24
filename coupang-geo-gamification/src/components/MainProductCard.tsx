@@ -1,0 +1,46 @@
+import React from "react";
+import { Product } from "@/models/product";
+import Image from "next/image";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import rocketLogo from "@/assets/rocket_logo.png";
+import coffeeImage from "@/assets/coffe-image.jpg";
+
+const MainProductCard = ({ product }: Product) => {
+  console.log(product.color);
+  const backgroundClass = `bg-[${product.color}]`;
+  return (
+    <div className={`flex flex-row p-8 py-8 items-center ${backgroundClass}`}>
+      <Image height={300} src={coffeeImage} />
+      <div className="flex flex-col">
+        <h1 className="text-2xl text-black">{product.name}</h1>
+        <h1 className="text-2xl text-black">{product.color}</h1>
+        <h2>{product.description}</h2>
+        <div>
+          <p>{product.rating}</p>
+          <div className="flex flex-row gap-2">
+            {[...Array(5)].map((_, index) => (
+              <FontAwesomeIcon key={index} icon={faStar} color={"yellow"} />
+            ))}
+          </div>
+          <p>{Math.floor(Math.random() * 140000)}개 상품평</p>
+        </div>
+        <hr />
+        <p className="flex flex-row items-center gap-3">
+          {product.discountForWow * 100}%
+          <span className="line-through">
+            {(product.price * 1.1).toFixed(2)}
+          </span>
+        </p>
+        <h1>{product.price.toFixed(2)}</h1>
+        <div className="flex flex-row items-center">
+          <h1 className="text-red-600 font-semibold text-2xl">
+            {product.price * (1 - product.discountForWow)}
+          </h1>
+          <Image className="p-5" src={rocketLogo} />
+        </div>
+      </div>
+    </div>
+  );
+};
+export default MainProductCard;
