@@ -1,2 +1,0 @@
-class LocalProductGeoLocationRepository
-  implements IProductGeoLocationRepository {}

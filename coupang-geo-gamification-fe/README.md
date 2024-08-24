@@ -1,3 +1,27 @@
+Coupang: your neighbour favourite store
+
+
+# Aim
+
+Coupang has to face competition from new oversea ecommerce. 
+What's best then that forge a sense of community with the Korean customer?
+This feature allow the customer to receive suggestion not based on his taste but on the taste 
+of his neighbour.
+
+The most popular product in the neighbourhood will be shown to the customer on a map.
+
+But this feature is not only for the customer. 
+The same function can be use by the business side to improve inventory management locally
+
+# Features
+
+- [ ] User can see the most popular product in his neighbourhood localized on a map
+- [ ] Business can see what product are under stock in some zone
+
+# Tech
+Nuxt 3
+
+
 # Nuxt 3 Minimal Starter
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.

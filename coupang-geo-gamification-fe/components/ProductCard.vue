@@ -4,8 +4,13 @@
       class="flex flex-row py-2 justify-start items-center"
       :style="{ scale: index > 0 ? 0.5 : 0.7 }"
     >
-      <img :src="`/assets/coffee-${index + 1}.jpg`" />
-      <div class="flex flex-col">
+      <div class="flex-1 h-[25vh]">
+        <img v-if="index == 0" src="@/assets/coffee-1.jpg" />
+        <img v-else-if="index == 1" src="@/assets/coffee-2.jpg" />
+        <img v-else src="@/assets/coffee-3.jpg" />
+      </div>
+
+      <div class="flex flex-col flex-2">
         <h1 class="text-2xl text-black">{{ product.name }}</h1>
         <h2>{{ product.description }}</h2>
         <div class="flex flex-row gap-3">
@@ -66,4 +71,10 @@ const fullStars = computed(() => Math.floor(props.product.rating));
 const emptyStars = computed(() => 5 - fullStars.value);
 </script>
 
-<style scoped></style>
+<style scoped>
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+}
+</style>
