@@ -3,14 +3,11 @@
 import * as d3 from "d3";
 import data from "@/assets/maps/seoul-dong.json";
 
-export function initializeMap(svgRef: React.RefObject<SVGSVGElement>) {
+export function initializeMap(svgRef: SVGSVGElement) {
   const width = 1000;
   const height = 700;
 
-  const svg = d3
-    .select(svgRef.current)
-    .attr("width", width)
-    .attr("height", height);
+  const svg = d3.select(svgRef).attr("width", width).attr("height", height);
 
   const projection = d3
     .geoMercator()

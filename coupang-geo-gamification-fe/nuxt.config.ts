@@ -8,4 +8,11 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  compatibilityDate: "2024-08-25",
+  modules: [
+    "@nuxt/image",
+    "@element-plus/nuxt",
+    "@pinia/nuxt",
+    "@vesp/nuxt-fontawesome",
+  ],
 });
