@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import * as d3 from "d3";
-import { ref, onMounted } from "vue";
-import { initializeMap } from "~/utilities/initialize-map";
-import { generateFakeData } from "~/utilities/generate-fake-data";
+import { ref, onMounted, watch } from "vue";
+import { initializeMap } from "@/utilities/initialize-map";
+import { generateFakeData } from "@/utilities/generate-fake-data";
 import { ElProgress } from "element-plus";
+import type { InventoryShortageSituation } from "~/models/inventory-shortage-situation";
 const svgRef = ref<SVGSVGElement | null>(null);
 const loading = ref<boolean>(false);
 const loadingStatus = ref<number>(0);
@@ -13,16 +14,9 @@ const dongList = ref<{
 
 const mapStore = useMapStore();
 
-function handleClick(event: any) {
-  const classSelected = handleMouseOver(event);
-  mapStore.productSelectedId = classSelected;
-}
+function handleClick(event: any) {}
 
-function handleMouseOver(event: any) {
-  const classSelected = d3.selectAll(`#${event.target.id}`).attr("class");
-  d3.selectAll(`.${classSelected}`).attr("fill", "red");
-  return classSelected.replace("product-", "");
-}
+function handleMouseOver(event: any) {}
 
 function handleMouseOut(event: any) {
   const path = d3.select(event.target);
@@ -52,16 +46,6 @@ function paintMap() {
   svg.call(zoom as any);
 
   const list = generateFakeData();
-  const progression = (95 - loadingStatus.value) / list.length;
-  list.forEach((dong) => {
-    loadingStatus.value = loadingStatus.value + progression;
-    const randomNumber = Math.floor(Math.random() * 3);
-    colorDongById(
-      dong.dongCode,
-      dong.mostPopularProducts[randomNumber].color,
-      dong.mostPopularProducts[randomNumber].id,
-    );
-  });
   svg
     .selectAll("path")
     .on("click", handleClick)
@@ -71,7 +55,36 @@ function paintMap() {
   loading.value = false;
 }
 
-const colorDongById = (id: string, color: string, productId: string) => {
+watch(
+  () => mapStore.inventoryProductSelected,
+  (newValue) => {
+    if (!newValue) {
+      d3.selectAll("path").attr("fill", "blue");
+      return;
+    }
+    newValue.shortageSituations.forEach(
+      (shortageSituation: InventoryShortageSituation) => {
+        colorDongById(
+          shortageSituation.dongCode,
+          shortageSituation.shortageCount,
+          newValue.product.id,
+        );
+      },
+    );
+  },
+);
+
+const colorDongById = (
+  id: string,
+  shortageCount: number,
+  productId: string,
+) => {
+  const colorScale = d3
+    .scaleLinear<string>()
+    .domain([-25000, 0]) // Adjust the domain based on the range of shortageCount values
+    .range(["#ff0000", "#ffcccc"]); // Shades of red from dark to light
+
+  const color = colorScale(shortageCount);
   dongList.value[productId] = color;
   d3.selectAll(`#dong-${id}`)
     .attr("fill", color)

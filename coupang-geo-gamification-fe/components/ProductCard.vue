@@ -24,7 +24,7 @@
               :style="{ color: 'gray' }"
             />
           </div>
-          <p>{{ Math.floor(Math.random() * 140000) }}개 상품평</p>
+          <p>140000 개 상품평</p>
         </div>
         <hr />
         <p class="flex flex-row items-center gap-3">
@@ -38,7 +38,7 @@
           <h1 class="text-red-600 font-semibold text-2xl">
             {{ (product.price * (1 - product.discountForWow)).toFixed(2) }}
           </h1>
-          <Image class="p-5" src="{rocketLogo}" />
+          <img class="p-5" src="@/assets/rocket_logo.png" />
         </div>
       </div>
     </div>
@@ -58,13 +58,9 @@ const props = defineProps<{
 }>();
 
 const selectedProductStyle = computed(() => ({
-  scale: selected ? 1.2 : 1,
+  scale: mapStore.productSelectedId === props.product.id ? 1.05 : 0.9,
   borderLeft: `solid 1rem ${props.product.color}`,
 }));
-
-const selected = computed(
-  () => mapStore.productSelectedId === props.product.id,
-);
 
 const fullStars = computed(() => Math.floor(props.product.rating));
 const emptyStars = computed(() => 5 - fullStars.value);
