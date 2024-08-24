@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { Product } from "@/models/product";
 import Image from "next/image";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +13,14 @@ interface MainProductCardProps {
 }
 
 const MainProductCard = ({ product, index }: MainProductCardProps) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return <div></div>;
+
   return (
     <div
       className="ml-4 my-1 w-full"
@@ -25,7 +34,7 @@ const MainProductCard = ({ product, index }: MainProductCardProps) => {
         <div className="flex flex-col">
           <h1 className="text-2xl text-black">{product.name}</h1>
           <h2>{product.description}</h2>
-          <div>
+          <div className="flex flex-row">
             <p>{product.rating}</p>
             <div className="flex flex-row gap-2">
               {[...Array(5)].map((_, index) => (

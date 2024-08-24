@@ -1,16 +1,18 @@
-import NavBar from "@/components/NavBar";
-import SeoulMap from "@/components/SeoulMap";
-import dongData from "@/assets/seoulDongNow.json";
-import ProductsList from "@/components/ProductsList";
+import Image from "next/image";
+import screenshot from "@/assets/coffee-product-screenshot.png";
+import Link from "next/link";
+import { populateDongTable } from "@/scripts/populate-dong-table";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-between bg-white">
-      <NavBar />
-      <section className="flex flex-row h-full">
-        <ProductsList dongList={dongData} />
-        <SeoulMap dongList={dongData} />
-      </section>
-    </main>
+    <section className="flex flex-row h-full">
+      <Link
+        href="/product"
+        className=" absolute top-[21vh] left-[58vw] text-blue-500"
+      >
+        Look on the map
+      </Link>
+      <Image src={screenshot} />
+    </section>
   );
 }
