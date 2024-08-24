@@ -1,10 +1,14 @@
 import seoulJson from "../assets/maps/seoul-dong.json";
 import productsJson from "../assets/products.json";
 import { ProductGeoLocation } from "@/models/product-geo-location";
+import { colorsList } from "@/utilities/productColors";
 
 export function generateFakeData() {
   const fakeData: ProductGeoLocation[] = [];
-  console.log(productsJson);
+  const products = productsJson.map((product, index) => {
+    product.color = colorsList[index];
+    return product;
+  });
   const dongList: string[] = seoulJson.features.map(
     (feature) => feature.properties["AdministrativeDongCode"],
   );
@@ -12,8 +16,8 @@ export function generateFakeData() {
   dongList.forEach((dongCode) => {
     fakeData.push({
       dongCode: dongCode,
-      mostPopularProducts: productsJson.slice(randomNumber, randomNumber + 3),
-      trendingProducts: productsJson.slice(3, 6),
+      mostPopularProducts: products.slice(randomNumber, randomNumber + 3),
+      trendingProducts: products.slice(3, 6),
     });
   });
   return fakeData;

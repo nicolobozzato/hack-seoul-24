@@ -98,5 +98,15 @@
     "discountForWow": 0.3,
     "color": "#B8860B",
     "rating": 5
+  },
+  {
+    "id": "11",
+    "name": "Vienna Roast",
+    "price": 17.99,
+    "imageUrl": "https://example.com/images/vienna-roast.jpg",
+    "description": "A medium-dark roast with a rich and smooth flavor.",
+    "discountForWow": 0.3,
+    "color": "#B8860B",
+    "rating": 5
   }
 ]

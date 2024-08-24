@@ -7,10 +7,10 @@ export default function Home() {
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-between bg-white">
       <NavBar />
-      <div className="flex flex-row">
+      <section className="flex flex-row h-full">
         <ProductsList dongList={dongData} />
         <SeoulMap dongList={dongData} />
-      </div>
+      </section>
     </main>
   );
 }
