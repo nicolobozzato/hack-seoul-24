@@ -58,6 +58,7 @@ function paintMap() {
 
   const progression = (95 - loadingStatus.value) / props.dongList.length;
   props.dongList.forEach((dong) => {
+    console.log(dong);
     loadingStatus.value = loadingStatus.value + progression;
     const randomNumber = Math.floor(Math.random() * 3);
     colorDongById(

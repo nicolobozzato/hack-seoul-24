@@ -56,7 +56,7 @@ function paintMap() {
 watch(
   () => mapStore.inventoryProductSelected,
   (newValue) => {
-    d3.selectAll("path").attr("fill", "blue");
+    d3.selectAll("path").attr("fill", "gray");
     if (!newValue) {
       return;
     }
