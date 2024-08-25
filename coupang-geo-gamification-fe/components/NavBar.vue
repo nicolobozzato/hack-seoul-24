@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full">
+  <div class="flex w-full hidden lg:block">
     <img src="../assets/nav-bar-screenshot.png" />
   </div>
 </template>

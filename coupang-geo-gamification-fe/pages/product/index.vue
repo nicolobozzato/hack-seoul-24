@@ -1,7 +1,7 @@
 <template>
   <section class="flex flex-col p-4 w-full">
     <h1 class="text-4xl font-bold py-4">What your neighbours are buying</h1>
-    <div v-if="!isLoading" class="flex flex-row h-full">
+    <div v-if="!isLoading" class="flex lg:flex-row flex-col h-full">
       <ProductsList :products="dataTopThreeProducts" />
       <SeoulMap :dongList="dataDongs" />
     </div>

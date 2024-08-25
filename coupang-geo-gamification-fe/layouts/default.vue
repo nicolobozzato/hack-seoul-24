@@ -1,7 +1,7 @@
 <template>
   <NavBar />
   <NuxtLink
-    class="absolute top-[9vh] left-[88vw] text-white bg-blue-500 p-2 rounded-lg"
+    class="absolute lg:top-[9vh] lg:left-[88vw] text-white bg-blue-500 p-2 rounded-lg"
     to="/console"
     >Console</NuxtLink
   >

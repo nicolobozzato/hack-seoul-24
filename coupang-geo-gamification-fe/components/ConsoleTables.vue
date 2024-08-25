@@ -60,7 +60,7 @@
   </div>
   <div
     v-else
-    class="flex flex-row justify-center items-center h[100vh] w-[100vw]"
+    class="flex flex-row justify-center items-center h[100vh] w-[50vw]"
   >
     <el-progress type="circle" :percentage="loadingStatus" status="success" />
   </div>
