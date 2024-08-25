@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col">
+  <div v-if="!isLoading" class="flex flex-row gap-2">
     <el-table
       ref="singleTableRef"
       :data="tableData"
@@ -12,7 +12,7 @@
         <template #default="scope">
           <div
             :class="{
-              'selected-row': mapStore.inventoryProductSelected === scope.row,
+              'selected-row': selectedRow === scope.row,
             }"
             class="cell-content"
           >
@@ -24,7 +24,7 @@
         <template #default="scope">
           <div
             :class="{
-              'selected-row': mapStore.inventoryProductSelected === scope.row,
+              'selected-row': selectedRow === scope.row,
             }"
             class="cell-content"
           >
@@ -34,11 +34,8 @@
       </el-table-column>
     </el-table>
 
-    <div v-if="mapStore.inventoryProductSelected" class="flex-1 mt-5">
-      <el-table
-        :data="mapStore.inventoryProductSelected.shortageSituations"
-        border
-      >
+    <div v-if="selectedRow" :key="selectedRow.product.id" class="flex-1">
+      <el-table :data="selectedRow?.shortageSituations ?? []" border>
         <el-table-column type="index" label="Dong" width="100" align="center">
           <template #default="scope">
             <div class="cell-content">
@@ -61,15 +58,25 @@
       </el-table>
     </div>
   </div>
+  <div
+    v-else
+    class="flex flex-row justify-center items-center h[100vh] w-[100vw]"
+  >
+    <el-progress type="circle" :percentage="loadingStatus" status="success" />
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
-import { ElTable } from "element-plus";
+import { ElProgress, ElTable } from "element-plus";
 import type { InventoryProductSituation } from "~/models/inventory-product-situation";
 import { ProductGeoLocationRepository } from "~/repository-fe/ProductGeoLocationRepository";
+import type { InventoryShortageSituation } from "~/models/inventory-shortage-situation";
 
 const mapStore = useMapStore();
+
+const isLoading = ref<boolean>(true);
+const loadingStatus = ref<number>(40);
 const tableData = ref<InventoryProductSituation[]>([]);
 
 const currentRow = ref();
@@ -78,22 +85,15 @@ const selectedRow = ref<InventoryProductSituation | null>(null);
 
 const handleRowClick = (row: InventoryProductSituation) => {
   selectedRow.value = row;
-  mapStore.inventoryProductSelected =
-    mapStore.inventoryProductSelected &&
-    mapStore.inventoryProductSelected === row
-      ? undefined
-      : row;
-  if (
-    mapStore.inventoryProductSelected &&
-    mapStore.inventoryProductSelected !== row
-  ) {
-    mapStore.inventoryShortageSituationSelected = undefined;
-  }
+  mapStore.inventoryProductSelected = row;
 };
 
 const fetchTableData = async () => {
+  isLoading.value = true;
+  loadingStatus.value = 40;
   try {
     const response = await fetch("/api/product-geo-location");
+    loadingStatus.value = 70;
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -102,6 +102,9 @@ const fetchTableData = async () => {
       await ProductGeoLocationRepository.Instance.getInventoryShortageSituation();
   } catch (error) {
     console.error("Error fetching table data:", error);
+  } finally {
+    loadingStatus.value = 90;
+    isLoading.value = false;
   }
 };
 

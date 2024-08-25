@@ -63,7 +63,7 @@ watch(
     newValue.shortageSituations.forEach(
       (shortageSituation: InventoryShortageSituation) => {
         colorDongById(
-          shortageSituation.dong.dongcode,
+          shortageSituation.dong.dongCode ?? shortageSituation.dong.dongcode,
           shortageSituation.shortageCount,
           newValue.product.id,
         );
