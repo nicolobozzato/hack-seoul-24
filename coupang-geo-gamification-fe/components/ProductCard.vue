@@ -1,10 +1,13 @@
 <template>
-  <div class="ml-4 my-1 w-full" :style="selectedProductStyle">
+  <div
+    class="ml-4 my-1 w-full border-2 border-gray-300 rounded-3xl"
+    :style="selectedProductStyle"
+  >
     <div
       class="flex flex-row py-2 justify-start items-center"
-      :style="{ scale: index > 0 ? 0.5 : 0.7 }"
+      :style="{ scale: index > 0 ? 0.65 : 0.75 }"
     >
-      <div class="flex-1 h-[25vh]">
+      <div class="flex-1 h-[25vh] w-1/3">
         <img v-if="index == 0" src="@/assets/coffee-1.jpg" />
         <img v-else-if="index == 1" src="@/assets/coffee-2.jpg" />
         <img v-else src="@/assets/coffee-3.jpg" />
