@@ -1,11 +1,8 @@
 <template>
-  <div class="flex flex-col">
-    <ProductCard
-      v-for="(product, index) in products"
-      :key="product.id"
-      :product="product"
-      :index="index"
-    />
+  <div class="grid grid-cols-4 mt-4">
+    <div class="pr-2" :key="product.id" v-for="(product, index) in products">
+      <ProductCard :product="product" :index="index" />
+    </div>
   </div>
 </template>
 

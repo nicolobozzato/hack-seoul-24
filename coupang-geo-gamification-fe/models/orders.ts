@@ -1,5 +1,5 @@
 export interface Order {
-  product: string;
+  productId: string;
   quantity: number;
   dongCode: string;
 }

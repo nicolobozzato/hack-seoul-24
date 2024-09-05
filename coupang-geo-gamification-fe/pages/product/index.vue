@@ -1,11 +1,14 @@
 <template>
-  <section class="flex flex-col p-4 w-full">
-    <h1 class="text-4xl font-bold py-4 pl-9">
-      What your neighbours are buying
-    </h1>
-    <div v-if="!isLoading" class="flex lg:flex-row flex-col h-full">
-      <ProductsList :products="dataTopThreeProducts" />
-      <SeoulMap :dongList="dataDongs" />
+  <section class="flex flex-col w-full h-full">
+    <div
+      v-if="!isLoading"
+      class="flex lg:flex-col justify-between flex-col p-4"
+    >
+      <div class="grid grid-cols-4 gap-1 w-full">
+        <ProductCard class="pr-4" :product="dataTopThreeProducts[0]" />
+        <SeoulMap class="col-start-2 col-span-3" :dongList="dataDongs" />
+      </div>
+      <ProductsList :products="otherProducts" />
     </div>
     <div v-else class="flex flex-row justify-center items-center">
       <el-progress
@@ -28,6 +31,7 @@ import type { Product } from "~/models/product";
 
 const dataDongs = ref<ProductGeoLocation[]>([]);
 const dataTopThreeProducts = ref<Product[]>([]);
+const otherProducts = ref<Product[]>([]);
 const isLoading = ref<boolean>(true);
 const loadingProgress = ref<number>(40);
 
@@ -38,6 +42,7 @@ onMounted(() => {
   loadingProgress.value = 80;
   if (dataDongs.value.length > 0) {
     dataTopThreeProducts.value = dataDongs.value[0].mostPopularProducts;
+    otherProducts.value = dataTopThreeProducts.value.slice(1);
   }
   loadingProgress.value = 95;
   isLoading.value = false;

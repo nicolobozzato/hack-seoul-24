@@ -11,7 +11,7 @@ export function initializeMap(svgRef: SVGSVGElement) {
 
   const projection = d3
     .geoMercator()
-    .scale(100000)
+    .scale(150000)
     .center([126.97111031571787, 37.59114726984669]);
   const geoPathGenerator = d3.geoPath().projection(projection);
 

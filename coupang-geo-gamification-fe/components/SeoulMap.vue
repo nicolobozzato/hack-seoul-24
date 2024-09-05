@@ -94,7 +94,7 @@ onMounted(() => {
 
 <template>
   <div
-    class="h-[60vh] border-black border-2 rounded-3xl overflow-hidden bg-amber-50 mt-4"
+    class="h-[50vh] border-black border-2 rounded-3xl overflow-hidden bg-amber-50"
   >
     <svg v-if="!loading" ref="svgRef" class="smooth-transition"></svg>
     <el-progress
